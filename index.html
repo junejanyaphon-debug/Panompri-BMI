@@ -1,171 +1,91 @@
 <!DOCTYPE html>
-<html lang="th">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BMI Calculator | Luxury UI</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+margin: 0 0 8px;
+font-weight: 600;
+}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-    }
 
-    .card {
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(18px);
-      border-radius: 20px;
-      padding: 30px 35px;
-      width: 100%;
-      max-width: 420px;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.4);
-      animation: fadeIn 1s ease;
-    }
+.result span {
+font-size: 28px;
+font-weight: 600;
+color: #4facfe;
+}
 
-    h1 {
-      text-align: center;
-      font-weight: 600;
-      margin-bottom: 10px;
-      letter-spacing: 1px;
-    }
 
-    p.subtitle {
-      text-align: center;
-      font-size: 14px;
-      opacity: 0.85;
-      margin-bottom: 25px;
-    }
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
 
-    label {
-      font-size: 14px;
-      margin-bottom: 6px;
-      display: block;
-    }
 
-    input {
-      width: 100%;
-      padding: 12px 15px;
-      border-radius: 12px;
-      border: none;
-      outline: none;
-      margin-bottom: 18px;
-      font-size: 15px;
-    }
-
-    input:focus {
-      box-shadow: 0 0 0 2px #4facfe;
-    }
-
-    button {
-      width: 100%;
-      padding: 14px;
-      border-radius: 14px;
-      border: none;
-      background: linear-gradient(135deg, #4facfe, #00f2fe);
-      color: #000;
-      font-weight: 600;
-      font-size: 16px;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(79,172,254,0.6);
-    }
-
-    .result {
-      margin-top: 22px;
-      padding: 18px;
-      border-radius: 14px;
-      background: rgba(0,0,0,0.35);
-      text-align: center;
-      display: none;
-    }
-
-    .result h2 {
-      margin: 0 0 8px;
-      font-weight: 600;
-    }
-
-    .result span {
-      font-size: 28px;
-      font-weight: 600;
-      color: #4facfe;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    footer {
-      text-align: center;
-      font-size: 12px;
-      margin-top: 18px;
-      opacity: 0.6;
-    }
-  </style>
+footer {
+text-align: center;
+font-size: 12px;
+margin-top: 18px;
+opacity: 0.6;
+}
+</style>
 </head>
 <body>
 
-  <div class="card">
-    <h1>BMI Calculator</h1>
-    <p class="subtitle">Luxury • Modern • Health</p>
 
-    <label for="weight">น้ำหนัก (กิโลกรัม)</label>
-    <input type="number" id="weight" placeholder="เช่น 60" />
+<div class="card">
+<h1>BMI Calculator</h1>
+<p class="subtitle">Luxury • Modern • Health</p>
 
-    <label for="height">ส่วนสูง (เซนติเมตร)</label>
-    <input type="number" id="height" placeholder="เช่น 170" />
 
-    <button onclick="calculateBMI()">คำนวณ BMI</button>
+<label for="weight">น้ำหนัก (กิโลกรัม)</label>
+<input type="number" id="weight" placeholder="เช่น 60" />
 
-    <div class="result" id="result">
-      <h2>ค่า BMI ของคุณ</h2>
-      <span id="bmiValue"></span>
-      <p id="bmiStatus"></p>
-    </div>
 
-    <footer>HTML5 Web App • Glassmorphism UI</footer>
-  </div>
+<label for="height">ส่วนสูง (เซนติเมตร)</label>
+<input type="number" id="height" placeholder="เช่น 170" />
 
-  <script>
-    function calculateBMI() {
-      const weight = parseFloat(document.getElementById('weight').value);
-      const heightCm = parseFloat(document.getElementById('height').value);
 
-      if (!weight || !heightCm) {
-        alert('กรุณากรอกข้อมูลให้ครบถ้วน');
-        return;
-      }
+<button onclick="calculateBMI()">คำนวณ BMI</button>
 
-      const heightM = heightCm / 100;
-      const bmi = weight / (heightM * heightM);
-      const bmiRounded = bmi.toFixed(2);
 
-      let status = '';
-      if (bmi < 18.5) status = 'น้ำหนักน้อย / ผอม';
-      else if (bmi < 23) status = 'ปกติ';
-      else if (bmi < 25) status = 'ท้วม';
-      else if (bmi < 30) status = 'อ้วน';
-      else status = 'อ้วนมาก';
+<div class="result" id="result">
+<h2>ค่า BMI ของคุณ</h2>
+<span id="bmiValue"></span>
+<p id="bmiStatus"></p>
+</div>
 
-      document.getElementById('bmiValue').innerText = bmiRounded;
-      document.getElementById('bmiStatus').innerText = status;
-      document.getElementById('result').style.display = 'block';
-    }
-  </script>
+
+<footer>HTML5 Web App • Glassmorphism UI</footer>
+</div>
+
+
+<script>
+function calculateBMI() {
+const weight = parseFloat(document.getElementById('weight').value);
+const heightCm = parseFloat(document.getElementById('height').value);
+
+
+if (!weight || !heightCm) {
+alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+return;
+}
+
+
+const heightM = heightCm / 100;
+const bmi = weight / (heightM * heightM);
+const bmiRounded = bmi.toFixed(2);
+
+
+let status = '';
+if (bmi < 18.5) status = 'น้ำหนักน้อย / ผอม';
+else if (bmi < 23) status = 'ปกติ';
+else if (bmi < 25) status = 'ท้วม';
+else if (bmi < 30) status = 'อ้วน';
+else status = 'อ้วนมาก';
+
+
+document.getElementById('bmiValue').innerText = bmiRounded;
+document.getElementById('bmiStatus').innerText = status;
+document.getElementById('result').style.display = 'block';
+}
+</script>
+
 
 </body>
 </html>
