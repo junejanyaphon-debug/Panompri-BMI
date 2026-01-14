@@ -1,91 +1,146 @@
 <!DOCTYPE html>
-margin: 0 0 8px;
-font-weight: 600;
-}
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite BMI Pro - Luxury Health Tracking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@200;300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #D4AF37;
+            --dark-bg: #0f1215;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
 
+        body {
+            font-family: 'Kanit', sans-serif;
+            background: radial-gradient(circle at center, #1a1e23 0%, #050505 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
 
-.result span {
-font-size: 28px;
-font-weight: 600;
-color: #4facfe;
-}
+        .luxury-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
 
+        .luxury-card:hover {
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
+        }
 
-@keyframes fadeIn {
-from { opacity: 0; transform: translateY(20px); }
-to { opacity: 1; transform: translateY(0); }
-}
+        .gold-text {
+            background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Playfair Display', serif;
+        }
 
+        .input-group input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
 
-footer {
-text-align: center;
-font-size: 12px;
-margin-top: 18px;
-opacity: 0.6;
-}
-</style>
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+        }
+
+        .btn-calc {
+            background: linear-gradient(135deg, #D4AF37 0%, #8A6E2F 100%);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .btn-calc:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+            filter: brightness(1.1);
+        }
+
+        .gauge-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+        }
+
+        #result-circle {
+            transition: stroke-dashoffset 1s ease-out;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        .floating-orb {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(40px);
+            animation: float 10s infinite alternate;
+        }
+
+        @keyframes float {
+            0% { transform: translate(-10%, -10%); }
+            100% { transform: translate(10%, 10%); }
+        }
+
+        .status-badge {
+            padding: 0.5rem 1.5rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 1rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.5s ease;
+        }
+
+        .status-badge.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
+    <div class="floating-orb" style="top: 0; left: 0;"></div>
+    <div class="floating-orb" style="bottom: 0; right: 0; background: radial-gradient(circle, rgba(138, 110, 47, 0.05) 0%, transparent 70%);"></div>
 
+    <div class="container mx-auto px-4 max-w-lg">
+        <div class="luxury-card p-8 md:p-12 relative overflow-hidden">
+            <!-- Header -->
+            <div class="text-center mb-10">
+                <h1 class="text-4xl md:text-5xl font-bold gold-text mb-2">ELITE BMI</h1>
+                <p class="text-gray-400 font-light tracking-widest text-sm uppercase">Advanced Health Metric Intelligence</p>
+            </div>
 
-<div class="card">
-<h1>BMI Calculator</h1>
-<p class="subtitle">Luxury • Modern • Health</p>
+            <!-- Form -->
+            <div class="space-y-6">
+                <div class="input-group">
+                    <label class="block text-gray-400 text-xs uppercase tracking-widest mb-2 ml-1">น้ำหนัก (กิโลกรัม)</label>
+                    <input type="number" id="weight" placeholder="เช่น 70.5" step="0.1" class="w-full px-6 py-4 rounded-xl text-white text-lg">
+                </div>
 
+                <div class="input-group">
+                    <label class="block text-gray-400 text-xs uppercase tracking-widest mb-2 ml-1">ส่วนสูง (เซนติเมตร)</label>
+                    <input type="number" id="height" placeholder="เช่น 175" class="w-full px-6 py-4 rounded-xl text-white text-lg">
+                </div>
 
-<label for="weight">น้ำหนัก (กิโลกรัม)</label>
-<input type="number" id="weight" placeholder="เช่น 60" />
-
-
-<label for="height">ส่วนสูง (เซนติเมตร)</label>
-<input type="number" id="height" placeholder="เช่น 170" />
-
-
-<button onclick="calculateBMI()">คำนวณ BMI</button>
-
-
-<div class="result" id="result">
-<h2>ค่า BMI ของคุณ</h2>
-<span id="bmiValue"></span>
-<p id="bmiStatus"></p>
-</div>
-
-
-<footer>HTML5 Web App • Glassmorphism UI</footer>
-</div>
-
-
-<script>
-function calculateBMI() {
-const weight = parseFloat(document.getElementById('weight').value);
-const heightCm = parseFloat(document.getElementById('height').value);
-
-
-if (!weight || !heightCm) {
-alert('กรุณากรอกข้อมูลให้ครบถ้วน');
-return;
-}
-
-
-const heightM = heightCm / 100;
-const bmi = weight / (heightM * heightM);
-const bmiRounded = bmi.toFixed(2);
-
-
-let status = '';
-if (bmi < 18.5) status = 'น้ำหนักน้อย / ผอม';
-else if (bmi < 23) status = 'ปกติ';
-else if (bmi < 25) status = 'ท้วม';
-else if (bmi < 30) status = 'อ้วน';
-else status = 'อ้วนมาก';
-
-
-document.getElementById('bmiValue').innerText = bmiRounded;
-document.getElementById('bmiStatus').innerText = status;
-document.getElementById('result').style.display = 'block';
-}
-</script>
-
-
-</body>
-</html>
+                <button onclick="calculateBMI()" class="btn-calc w-
